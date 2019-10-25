@@ -1,0 +1,27 @@
+# 文件相关
+alias co='code ./'
+alias fo='open ./'
+alias xo='open *.xcodeproj'
+alias po='open *.xcworkspace'
+
+# cocoapods
+alias pru='pod repo update'
+alias pi='pod install'
+alias pu='pod update'
+alias piu='pod install --repo-update'
+alias repoanalysis='specbackwarddependency /Users/liubinpeng/.cocoapods/repos/51xianqu-xq_specs'
+alias plint='pod spec lint --sources="git@gitlab.51xianqu.com:xq_ios/xq_specs.git"'
+
+# Git
+
+alias glocalbranchPush='git push --set-upstream origin '
+alias glg="git log --graph --pretty=format:'%Cred%h%Crest -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
+alias ns='npm start'
+alias ni='npm install'
+alias nb='npm run build'
+alias nig='npm install -g '
+
+# Python
+alias py='python'
+Alias py3='python3'
