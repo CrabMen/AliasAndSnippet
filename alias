@@ -10,7 +10,6 @@ alias pi='pod install'
 alias pu='pod update'
 alias piu='pod install --repo-update'
 alias repoanalysis='specbackwarddependency /Users/liubinpeng/.cocoapods/repos/51xianqu-xq_specs'
-alias plint='pod spec lint --sources="git@gitlab.51xianqu.com:xq_ios/xq_specs.git"'
 
 # Git
 
