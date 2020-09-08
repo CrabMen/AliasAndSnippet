@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>CMWeakLazyLoad</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>- (&lt;#UIView#&gt; *)&lt;#view#&gt;{
+    if (!&lt;#_view#&gt;) {
+        &lt;#UIView#&gt; *&lt;#view#&gt; = [&lt;#UIView#&gt; new];
+        &lt;#_view#&gt; = &lt;#view#&gt;;
+        [self addSubview:&lt;#_view#&gt;];
+    }
+    return &lt;#_view#&gt;;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>AAB7CDAB-CF6B-49D1-BAE3-3EB0EE8C6899</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Crab Man Lazy Load Weak</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
