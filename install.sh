@@ -1,55 +1,36 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-function install_oh_my_zsh() {
+crabman_str="crabman"
+bin_dir="/usr/local/bin"
+soft_link_file="${bin_dir}/${crabman_str}"
+crabman_work_dir="${HOME}/.crabman"
+crabman_bin_file="${crabman_work_dir}/${crabman_str}"
 
-    if [ -d ~/.oh-my-zsh ] then
-        echo 'You have already Oh My Zsh installed'
-    else
-        echo 'trying to install oh-my-zsh...'
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    fi
-}
+# 请求 bin 目录的写入权限
+if [[ ! -w ${bin_dir} ]]; then
+    echo "为了使用 crabman，请输入密码 ："
+    sudo chown $(whoami) ${bin_dir}
+fi
 
+# 创建工作目录
+if [[ ! -e ${crabman_work_dir} ]]; then
+    mkdir ${crabman_work_dir}
+fi
 
-function install_cocoapods() {
-    if [ ! `which pod`] then 
-        echo 'trying to install cocoapods...'
-            sudo gem install cocoapods
-    else
-        echo 'You have already cocoapods installed'
-    fi
+echo "开始安装crabman..."
+# 从 GitHub 上下载脚本
+curl --retry 2 -o ${crabman_bin_file} https://raw.githubusercontent.com/CrabMen/AliasAndSnippet/master/main.sh
+# 本地开发时直接将文件复制过去
+# cp ./main.sh ${crabman_bin_file}
 
-}
-
-
-function install_homebrew() {
-
-    if [ ! `which brew`] then 
-        echo 'trying to install homebrew...'
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
-    else
-        echo 'You have already homebrew installed'
-    fi
-        
-}
-
-function install_react_native() {
-    brew install watchman
-    # use nvm to manage node 
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-
-    nvm install node 
-
-    npm install -g yarn react-native-cli
-}
-
-
-function pre_develop_environment() {
-
-install_oh_my_zsh
-install_cocoapods
-install_homebrew
-install_react_native
-
-
-}
+if [[ $? -eq 0 ]]; then
+    # 给 crabman 添加执行权限
+    chmod 755 ${crabman_bin_file}
+    # 创建一个到 /usr/local/bin/crabman 的软链
+    ln -sf ${crabman_bin_file} ${soft_link_file}
+    echo "成功安装 crabman！"
+    ${crabman_bin_file} -n
+else
+    echo "安装crabman失败，请稍后重试。"
+    exit 1
+fi
