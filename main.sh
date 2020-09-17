@@ -113,6 +113,67 @@ check_dir() {
     fi
 }
 
+isCommandExits() {
+    if [ ! $# -eq 1 ]; then
+        echo " param error!"
+        exit 1
+    fi
+    cmd_name=$1
+    if [ type $cmd_name ] >/dev/null 2>&1; then
+        return 0
+        echo_with_date "${cmd_name} was not installed"
+
+    else
+        return 1
+        echo_with_date "${cmd_name} was installed"
+
+    fi
+
+}
+
+cpp() {
+    if [ ! $# -eq 1 ]; then
+        echo "param error"
+        exit 1
+    fi
+
+    ret=$(isCommandExits xcode-select)
+
+    echo "结果是${ret}"
+
+    if [ ${ret} == 0 ]; then
+        echo_with_date 'xcode was not installed, please install xcode firstly!!!'
+        exit 1
+    fi
+
+    if [!$(which xcrun)]; then
+        echo_with_date 'xcode commnd line tools was not installed'
+        echo_with_date 'trying to install xcode command line tools...'
+        xcode-select --install
+        wait
+        echo_with_date 'xcode command line tools has been installed'
+        cpp
+    else
+
+        file_path=$1
+        temp=${file_path##*/}
+        file_name=${temp%.*}
+        echo_with_date "目标文件${temp}"
+
+        xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc main.m -o mainarm64.cpp
+
+        if [[ $? -eq 0 ]]; then
+            echo_with_date 'successed generated cpp file '
+        else
+            echo_with_date "peform error"
+            echo_with_date "trying to recovering..."
+            sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer/
+        fi
+
+    fi
+
+}
+
 install_xcode() {
     if [ -d ${xcode_dir} ]; then
         echo_with_date 'You have already Xcode installed'
@@ -173,3 +234,6 @@ crabman_version=1.0.0
 echo_with_date "当前 crabman 的版本为 v${crabman_version}"
 # upload_snippets
 # download_snippets
+# cpp main.m
+
+# isCommandExits xcode-select
